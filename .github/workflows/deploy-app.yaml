@@ -22,9 +22,10 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           passphrase: ${{ secrets.PASSPHRASE }}
 
-          script: |
-            
-            git clone https://github.com/auxibee/chimoney.git
+          script: |            
             cd chimoney
-            npm run setup:all
+            git pull origin main
+            npm install
+            npm run build
+            npm run start
           
