@@ -6,7 +6,7 @@ import { randomStr } from "./random-str";
 
 import { Resend } from "resend";
 
-const resend = new Resend("re_4rATDqHD_GnQpPbRteZaPAWycHiC5Gh8f");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendEmailVerification(email: string) {
 	const baseURl = "locchd";
