@@ -4,6 +4,8 @@ import { prisma } from "@/db/prisma";
 import { Prisma, User } from "@prisma/client";
 import { z } from "zod";
 import { hash } from "../password";
+import { redirect } from "next/navigation";
+import { sendEmailVerification } from "../send-email-verification";
 
 const RegisterUserSchema = z
 	.object({
@@ -57,9 +59,14 @@ export async function register(
 			const [field] = error.meta?.target as string[];
 			return { message: `${field} already exists` };
 		}
+		return { message: "somethin went wrong" };
 	}
 
 	await prisma.authCredential.create({
 		data: { password: await hash(password), userId: user.id },
 	});
+
+	await sendEmailVerification(user.email);
+
+	redirect("/register-succes");
 }
