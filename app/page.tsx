@@ -1,4 +1,3 @@
-import Loginform from "@/components/forms/login";
 import Link from "next/link";
 
 export default function Home() {
